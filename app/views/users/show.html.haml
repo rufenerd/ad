@@ -1,0 +1,13 @@
+- if @current_user == @user
+  = link_to "Edit Account Info", edit_user_path(@user)
+  %br
+  %br  
+= @user.occupation
+%br
+= @user.email
+
+- unless @user.submissions.empty?
+  %h3 Submissions
+  - @user.submissions.each do |d|
+    = link_to d.name, directive_path(d.id)
+    %br

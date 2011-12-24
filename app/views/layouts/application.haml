@@ -1,0 +1,38 @@
+%html
+  %head
+    %link{:rel => "shortcut icon", :href => "/favicon.ico"}
+
+    = stylesheet_link_tag "style"
+    = javascript_include_tag 'jquery-1.3.2.min.js'
+    = javascript_include_tag 'jquery.ez-pinned-footer.js'
+    %title= title
+  %body
+    #wrapper
+  
+      %header.container
+        %h1= title
+        - if @current_user
+          = render :partial => "shared/nav"
+
+      %page      
+        #content
+          #flash_notice.attention
+            = flash[:notice]
+          = yield
+          %br
+          %br
+
+        #sidebar
+          = render :partial => "shared/sidebar"
+        #footer
+          = render :partial => "shared/footer"
+
+:javascript
+  $(document).ready(function() {
+      $("#footer").pinFooter();
+      $('#flash_notice').fadeIn(1000).fadeOut(5000).delay(1000).hide();
+  });
+  
+  $(window).resize(function() {
+      $("#footer").pinFooter();
+  });

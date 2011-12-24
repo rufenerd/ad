@@ -1,0 +1,23 @@
+= #TODO: This is really inefficient
+%td{:id => "hidden_flag_#{d.id}", :hidden => true}= flag_html(d.id)
+%td{:id => "hidden_unflag_#{d.id}", :hidden => true}= flag_html(d.id, false)
+- if d.flagged?(@current_user)
+  %td{:id => "flag_#{d.id}"}= flag_html(d.id)
+- else
+  %td{:id => "flag_#{d.id}"}= flag_html(d.id, false)
+  
+:javascript
+  var unflag = function(path, id){
+    $.ajax({url: path,
+      type:'POST',
+      success: function(){
+        $('#flag_' + id + '} a').html($('#hidden_unflag_' + id).html()).show();
+      }});};
+
+  var flag = function(path, id){
+      $.ajax({url: path,
+            type:'POST',
+            success: function(){
+              alert("Flagged directives will be reviewed for removal. If you flagged this directive by mistake, unflag it by clicking the flag again.");
+              $('#flag_' + id + '} a').html($('#hidden_flag_' + id).html()).show();
+            }});}

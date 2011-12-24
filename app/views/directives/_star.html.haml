@@ -1,0 +1,22 @@
+= #TODO: This is really inefficient
+%td{:id => "hidden_star_#{d.id}", :hidden => true}= star_html(d.id)
+%td{:id => "hidden_unstar_#{d.id}", :hidden => true}= star_html(d.id, false)
+- if d.starred?(@current_user)
+  %td{:id => "star_#{d.id}"}= star_html(d.id)
+- else
+  %td{:id => "star_#{d.id}"}= star_html(d.id, false)
+  
+:javascript
+  var unstar = function(path, id){
+    $.ajax({url: path,
+      type:'POST',
+      success: function(){
+        $('#star_' + id + '} a').html($('#hidden_unstar_' + id).html()).show();
+      }});};
+
+  var star = function(path, id){
+      $.ajax({url: path,
+            type:'POST',
+            success: function(){
+              $('#star_' + id + '} a').html($('#hidden_star_' + id).html()).show();
+              }});}

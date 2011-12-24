@@ -1,0 +1,19 @@
+%h3 Your Submitted Directives
+
+- if  @current_user.submissions.size > 0
+  (#{link_to "Submit a New Directive", new_directive_path})
+  %br
+  %br
+  = render :partial => "list", :locals => {:directives => @current_user.submissions}
+
+- else
+  = "No submissions yet. #{link_to "Have one to submit", new_directive_path}?"
+
+%h3 Your Favorite Directives
+- if  @current_user.stars.size > 0
+  = render :partial => "list", :locals => {:directives => @current_user.stars}
+  %br
+  %br
+- else
+  = "No favorites yet."  
+ 

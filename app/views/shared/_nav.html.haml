@@ -1,0 +1,8 @@
+= link_to "Home", home_directives_path
+= link_to "Directives", directives_path
+= link_to "Submit a New Directive", new_directive_path 
+= link_to "Edit Account Info", edit_user_path(@current_user)
+= link_to "Logout", logout_authenticate_path
+- if @current_user.admin?
+  = link_to "Admin", admin_directives_path
+

@@ -1,0 +1,20 @@
+%table#directives_table{:width => "800px"}
+  %tr
+    %th Name
+    %th Submitted By
+    %th Submitted On
+    %th Tags
+    %th
+    %th  
+  - directives.each do |d|
+    %tr{:id => "row_#{d.id}"}
+      %td= link_to d.name, directive_path(d)
+      %td= link_to d.submitter.name, user_path(d.submitter)
+      %td= d.submission.created_at.strftime("%D")
+      %td.wide= d.tag_list.join(", ")
+      - if @current_user == d.submitter || @current_user.admin?
+        %td= link_to image_tag("pencil.ico"), edit_directive_path(d)
+        %td= link_to_function image_tag('x.ico'), "$.ajax({url:'#{directive_path(d)}', type:'DELETE', success:function(){$('#row_#{d.id}').hide();}})"
+      - else
+        = render :partial => "star", :locals => {:d => d}
+        = render :partial => "flag", :locals => {:d => d}

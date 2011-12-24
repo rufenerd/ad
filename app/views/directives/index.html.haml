@@ -1,0 +1,17 @@
+- form_tag(directives_path, :method => :get) do
+
+  %h3= "Search by Population/Topic"
+  - Directive::TOPICS.each do |topic|
+    = hidden_field_tag "tag_list[#{topic.to_sym}]", 0
+    = check_box_tag "tag_list[#{topic.to_sym}]", "1", (@tags || []).include?(topic)
+    = topic
+    %br
+  
+  %br
+  = check_box_tag "match_all", "1", @match_all
+  must match all
+  
+  %br
+  = submit_tag "Search"
+
+= render :partial => 'list', :locals => {:directives => @directives}

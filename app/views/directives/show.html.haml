@@ -1,0 +1,30 @@
+%h2= @directive.name
+
+= #TODO: This can't be in a table..
+%table
+  %tr
+    - if @current_user == @directive.submitter || @current_user.admin?
+      %td= link_to "Edit", edit_directive_path(@directive)
+    = render_partial :partial => "star", :locals => {:d => @directive}
+    = render_partial :partial => "flag", :locals => {:d => @directive}
+
+%h3 Matrials
+.really_wide= @directive.materials
+
+%h3 Description
+.really_wide= @directive.description
+
+%br
+
+- if @directive.tag_list.empty?
+  Uncategorized
+- else
+  %h3 Useful For:
+  = @directive.tag_list.join(", ")
+
+%br
+%br
+%hr.really_wide
+
+- if @directive.submitter
+  .really_wide= "Submitted by #{link_to name_and_role(@directive.submitter), user_path(@directive.submitter)} on #{date_str(@directive.created_at)}"

@@ -1,0 +1,21 @@
+- form_for user do |f|
+  = f.label :name, "Full Name"
+  = f.text_field :name
+  %br
+  = f.label :username
+  = f.text_field :username
+  %br
+  = f.label :email
+  = f.text_field :email
+  %br
+  = label_tag :password  
+  = password_field_tag :password
+  %br
+  = label_tag :password_confirmation  
+  = password_field_tag :password_confirmation
+  %br
+  = f.label :role, "Occupation"
+  = f.select :role, User::OCCUPATIONS
+  %br
+  = f.submit @current_user ? "Update" : "Register"
+  

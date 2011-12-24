@@ -1,0 +1,24 @@
+- form_for @directive do |f|
+  = f.label :name
+  = f.text_field :name
+  %br
+  %br
+
+  = label_tag "Topics"
+  %br
+  - Directive::TOPICS.each do |topic|
+    = hidden_field_tag "directive[tag_list][#{topic.to_sym}]", 0
+    = check_box_tag "directive[tag_list][#{topic.to_sym}]", "1", @directive.tag_list.include?(topic)
+    = topic
+    %br
+
+  %br    
+  = f.label :materials
+  %br
+  = f.text_area :materials    
+  %br
+  = f.label :description
+  %br
+  = f.text_area :description
+  %br
+  = f.submit "Save"

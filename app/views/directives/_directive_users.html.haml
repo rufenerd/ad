@@ -1,0 +1,10 @@
+%table
+  %tr
+    %th Directive
+    %th User
+    %th Time
+  - dus.each do |du|
+    %tr
+      %td= link_to du.directive.name, directive_path(du.directive)
+      %td= link_to du.user.name, user_path(du.user)
+      %td= du.created_at.in_time_zone("Pacific Time (US & Canada)").strftime("%D %T")
